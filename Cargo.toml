@@ -3,7 +3,12 @@ name = "kobo-weather"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[[example]]
+name = "preview"
+path = "examples/preview.rs"
+
+[dev-dependencies]
+show-image = "0.13.1"
 
 [dependencies]
 resvg = "0.25.0"
