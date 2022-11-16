@@ -1,20 +1,16 @@
-use anyhow::Result;
 use tiny_skia::Pixmap;
 
-fn to_rgb565<'a>(image: Pixmap) -> Result<Vec<u8>> {
-    let rgb565 = image
-        .data()
-        .chunks(4)
-        .flat_map(|chunk| {
-            if let [r, g, b, alpha] = chunk {
-                rgb888_to_rgb565(*r, *g, *b, *alpha)
-            } else {
-                panic!("Invalid image size!")
-            }
-        })
-        .collect::<Vec<u8>>();
-
-    Ok(rgb565)
+/// Convert a Pixmap to a raw rgb565 image with little endian byte order.
+/// This is the format used for displaying images on a Kobo.
+fn to_rgb565_le(image: &Pixmap) -> impl Iterator<Item = u8> + '_ {
+    image.data().chunks(4).flat_map(|chunk| {
+        if let [r, g, b, alpha] = chunk {
+            rgb888_to_rgb565(*r, *g, *b, *alpha)
+        } else {
+            // This should never happen
+            panic!("Invalid image size!")
+        }
+    })
 }
 
 fn rgb888_to_rgb565(r: u8, g: u8, b: u8, _alpha: u8) -> [u8; 2] {
@@ -28,7 +24,7 @@ fn rgb888_to_rgb565(r: u8, g: u8, b: u8, _alpha: u8) -> [u8; 2] {
 
 #[cfg(test)]
 mod tests {
-    use crate::kobo::to_rgb565;
+    use crate::kobo::to_rgb565_le;
     use anyhow::{Context, Result};
     use tiny_skia::Pixmap;
     use tiny_skia_path::IntSize;
@@ -36,12 +32,28 @@ mod tests {
     #[test]
     fn converts_all_white_image() -> Result<()> {
         let pixmap = Pixmap::from_vec(
-            vec![0xff, 0xff, 0xff, 0xff],
+            vec![0xFF, 0xFF, 0xFF, 0xFF],
             IntSize::from_wh(1, 1).context("Bad size")?,
         )
         .context("Bad Vec")?;
-        let result = to_rgb565(pixmap)?;
-        assert_eq!(result, vec!(0xff, 0xff));
+
+        let result = to_rgb565_le(&pixmap).collect::<Vec<u8>>();
+
+        assert_eq!(result, vec!(0xFF, 0xFF));
+        Ok(())
+    }
+
+    #[test]
+    fn converts_image() -> Result<()> {
+        let pixmap = Pixmap::from_vec(
+            vec![0x2E, 0xD5, 0x52, 0x00],
+            IntSize::from_wh(1, 1).context("Bad size")?,
+        )
+        .context("Bad Vec")?;
+
+        let result = to_rgb565_le(&pixmap).collect::<Vec<u8>>();
+
+        assert_eq!(result, vec!(0xAA, 0x2E));
         Ok(())
     }
 }
