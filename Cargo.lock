@@ -765,6 +765,7 @@ dependencies = [
  "resvg",
  "show-image",
  "tiny-skia 0.8.2",
+ "tiny-skia-path 0.8.2",
  "usvg",
 ]
 

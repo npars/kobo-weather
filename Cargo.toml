@@ -17,6 +17,7 @@ path = "examples/preview.rs"
 
 [dev-dependencies]
 show-image = "0.13.1"
+tiny-skia-path = "0.8.2"
 
 [dependencies]
 resvg = "0.25.0"
