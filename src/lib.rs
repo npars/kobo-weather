@@ -1,10 +1,14 @@
-use anyhow::{Context, Result};
-use tiny_skia::{ Pixmap, Transform};
-use usvg::{FitTo, Options, Tree};
+mod dashboard;
+mod render;
 
-pub fn render(tree: &Tree) -> Result<Pixmap> {
-    let size = tree.size.to_screen_size();
-    let mut pixmap = Pixmap::new(size.width(), size.height()).context("Failed to create pixmap")?;
-    resvg::render(&tree, FitTo::Original, Transform::default(), pixmap.as_mut());
-    Ok(pixmap)
+use anyhow::Result;
+use tiny_skia::Pixmap;
+use crate::dashboard::build_dashboard;
+use crate::render::render;
+
+pub fn render_dashboard() -> Result<Pixmap> {
+    let dash_svg = build_dashboard()?;
+    let dash_pixmap = render(&dash_svg)?;
+
+    Ok(dash_pixmap)
 }

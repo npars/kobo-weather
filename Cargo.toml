@@ -3,6 +3,14 @@ name = "kobo-weather"
 version = "0.1.0"
 edition = "2021"
 
+[[bin]]
+name = "kobo_weather"
+path = "src/main.rs"
+
+[lib]
+name = "kobo_weather"
+path = "src/lib.rs"
+
 [[example]]
 name = "preview"
 path = "examples/preview.rs"
