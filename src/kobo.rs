@@ -1,4 +1,33 @@
+use anyhow::{Context, Result};
+use std::io::{BufWriter, Write};
+use std::process::{Command, Stdio};
 use tiny_skia::Pixmap;
+
+pub fn display(image: Pixmap) -> Result<()> {
+    let raw_image = to_rgb565_le(&image);
+    display_image(raw_image)
+}
+
+fn display_image(raw_image: impl Iterator<Item = u8>) -> Result<()> {
+    let mut pickel = Command::new("/usr/local/Kobo/pickel")
+        .arg("showpic")
+        .stdin(Stdio::piped())
+        .spawn()?;
+
+    {
+        let mut buffer = BufWriter::new(pickel.stdin.as_ref().context("Failed to pipe to pickel")?);
+        raw_image.for_each(|byte| {
+            buffer
+                .write_all(&[byte])
+                .expect("Failed to write to buffer")
+        });
+        buffer.flush()?;
+    }
+
+    pickel.wait()?;
+
+    Ok(())
+}
 
 /// Convert a Pixmap to a raw rgb565 image with little endian byte order.
 /// This is the format used for displaying images on a Kobo.

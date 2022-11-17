@@ -1,0 +1,21 @@
+[tasks.format]
+description = "Runs the cargo rustfmt plugin."
+install_crate = "rustfmt"
+command = "cargo"
+args = ["fmt"]
+
+[tasks.install_target]
+description = "Install required targets"
+command = "rustup"
+args = ["target", "add", "armv7-unknown-linux-gnueabihf"]
+
+[tasks.build]
+dependencies = ["install_target"]
+description = "Build the project for Kobo."
+command = "cargo"
+args = ["build", "--target", "armv7-unknown-linux-gnueabihf"]
+
+[tasks.preview]
+description = "Preview the dashboard."
+command = "cargo"
+args = ["run", "--example", "preview"]
