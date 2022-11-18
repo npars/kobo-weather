@@ -1,9 +1,11 @@
 use anyhow::{Context, Result};
+use log::debug;
 use std::io::{BufWriter, Write};
 use std::process::{Command, Stdio};
 use tiny_skia::Pixmap;
 
 pub fn display(image: Pixmap) -> Result<()> {
+    debug!("Displaying the dashboard");
     let raw_image = to_rgb565_le(&image);
     display_image(raw_image)
 }

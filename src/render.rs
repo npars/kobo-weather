@@ -1,9 +1,11 @@
 use anyhow::{Context, Result};
+use log::debug;
 use tiny_skia::{Pixmap, Transform};
 use usvg::roxmltree::Document;
 use usvg::{FitTo, Options, Tree};
 
 pub(crate) fn render(svg_doc: &Document) -> Result<Pixmap> {
+    debug!("Rendering the dashboard");
     let mut opt = Options::default();
     opt.fontdb.load_system_fonts();
 
