@@ -6,24 +6,24 @@ args = ["fmt"]
 
 [tasks.install-deps.mac]
 script = '''
-if ! command -v armv7-unknown-linux-musleabihf-gcc &> /dev/null
+if ! command -v armv7-unknown-linux-gnueabihf-gcc &> /dev/null
 then
     brew tap messense/macos-cross-toolchains
-    brew install armv7-unknown-linux-musleabihf
+    brew install armv7-unknown-linux-gnueabihf
 fi
 '''
 
 [tasks.install-target]
 description = "Install required targets"
 command = "rustup"
-args = ["target", "add", "armv7-unknown-linux-musleabihf"]
+args = ["target", "add", "armv7-unknown-linux-gnueabihf"]
 
 [tasks.build]
 dependencies = ["install-deps", "install-target"]
 description = "Build the project for Kobo."
-env = { "CC_armv7_unknown_linux_musleabihf" = "armv7-unknown-linux-musleabihf-gcc", "CXX_armv7_unknown_linux_musleabihf" = "armv7-unknown-linux-musleabihf-g++",  "AR_armv7_unknown_linux_musleabihf" = "armv7-unknown-linux-musleabihf-ar", "CARGO_TARGET_ARMV7_UNKNOWN_LINUX_MUSLEABIHF_LINKER" = "armv7-unknown-linux-musleabihf-gcc"}
+env = { "CC_armv7_unknown_linux_gnueabihf" = "armv7-unknown-linux-gnueabihf-gcc", "CXX_armv7_unknown_linux_gnueabihf" = "armv7-unknown-linux-gnueabihf-g++",  "AR_armv7_unknown_linux_gnueabihf" = "armv7-unknown-linux-gnueabihf-ar", "CARGO_TARGET_ARMV7_UNKNOWN_LINUX_GNUEABIHF_LINKER" = "armv7-unknown-linux-gnueabihf-gcc"}
 command = "cargo"
-args = ["build", "--release", "--target", "armv7-unknown-linux-musleabihf", "--verbose"]
+args = ["build", "--release", "--target", "armv7-unknown-linux-gnueabihf"]
 
 [tasks.preview]
 description = "Preview the dashboard."
