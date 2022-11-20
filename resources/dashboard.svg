@@ -20,27 +20,54 @@
     y1="30"
     x2="400"
     y2="570"
-    id="line1"
     style="fill:none;stroke:#222222;stroke-width:2;stroke-miterlimit:10" />
-  <text
-    xml:space="preserve"
-    style="font-size:80px;font-family:'Inter';fill:#000000"
-    x="25%"
-    y="100"
-    id="current-day-name"
-    text-anchor="middle">Friday</text>
-  <text
-    xml:space="preserve"
-    style="font-size:30px;font-family:'Inter';fill:#000000"
-    x="25%"
-    y="150"
-    id="current-day-long"
-    text-anchor="middle">November 18, 2022</text>
-  <text
-    xml:space="preserve"
-    style="font-size:120px;font-family:'Weather Icons';fill:#000000"
-    x="25%"
-    y="320"
-    id="today-icon"
-    text-anchor="middle"></text>
+  <line
+    x1="430"
+    y1="200"
+    x2="770"
+    y2="200"
+    style="fill:none;stroke:#222222;stroke-width:2;stroke-miterlimit:10" />
+  <line
+    x1="430"
+    y1="400"
+    x2="770"
+    y2="400"
+    style="fill:none;stroke:#222222;stroke-width:2;stroke-miterlimit:10" />
+  <g id="current">
+    <text
+      xml:space="preserve"
+      style="font-size:60px;font-family:'Inter';fill:#000000"
+      x="25%"
+      y="100"
+      id="current-day-name"
+      text-anchor="middle">Wednesday</text>
+    <text
+      xml:space="preserve"
+      style="font-size:30px;font-family:'Inter';fill:#000000"
+      x="25%"
+      y="150"
+      id="current-day-long"
+      text-anchor="middle">November 18, 2022</text>
+    <text
+      xml:space="preserve"
+      style="font-size:160px;font-family:'Weather Icons';fill:#000000"
+      x="25%"
+      y="360"
+      id="today-icon"
+      text-anchor="middle"></text>
+    <text
+      xml:space="preserve"
+      style="font-size:80px;font-family:'Weather Icons';fill:#000000"
+      x="25%"
+      y="500"
+      id="today-temp"
+      text-anchor="middle">12°C</text>
+    <text
+      xml:space="preserve"
+      style="font-size:30px;font-family:'Weather Icons';fill:#000000"
+      x="25%"
+      y="550"
+      id="today-feel"
+      text-anchor="middle">Feels Like 8°C</text>
+  </g>
 </svg>
