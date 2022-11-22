@@ -53,21 +53,21 @@
       style="font-size:160px;font-family:'Weather Icons';fill:#000000"
       x="25%"
       y="360"
-      id="today-icon"
-      text-anchor="middle"></text>
+      id="current-icon"
+      text-anchor="middle">&#xf00d;</text>
     <text
       xml:space="preserve"
       style="font-size:80px;font-family:'Weather Icons';fill:#000000"
       x="25%"
       y="500"
-      id="today-temp"
+      id="current-temp"
       text-anchor="middle">12°C</text>
     <text
       xml:space="preserve"
       style="font-size:30px;font-family:'Weather Icons';fill:#000000"
       x="25%"
       y="550"
-      id="today-feel"
+      id="current-feel"
       text-anchor="middle">Feels Like 8°C</text>
   </g>
 </svg>

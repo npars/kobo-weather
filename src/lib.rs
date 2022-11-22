@@ -1,5 +1,7 @@
 mod dashboard;
 mod render;
+mod weather;
+mod weather_icon;
 
 use crate::dashboard::build_dashboard;
 use crate::render::render;
