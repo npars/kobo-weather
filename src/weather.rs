@@ -1,8 +1,10 @@
 use crate::weather_icon::WeatherIcon;
 
+const FORECAST_COUNT: usize = 3;
+
 struct WeatherReport {
     current_conditions: CurrentConditions,
-    forecast: Vec<Forecast>,
+    forecast: [Forecast; FORECAST_COUNT],
 }
 
 struct CurrentConditions {

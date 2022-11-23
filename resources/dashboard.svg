@@ -23,15 +23,15 @@
     style="fill:none;stroke:#222222;stroke-width:2;stroke-miterlimit:10" />
   <line
     x1="430"
-    y1="200"
+    y1="210"
     x2="770"
-    y2="200"
+    y2="210"
     style="fill:none;stroke:#222222;stroke-width:2;stroke-miterlimit:10" />
   <line
     x1="430"
-    y1="400"
+    y1="390"
     x2="770"
-    y2="400"
+    y2="390"
     style="fill:none;stroke:#222222;stroke-width:2;stroke-miterlimit:10" />
   <g id="current">
     <text
@@ -69,5 +69,38 @@
       y="550"
       id="current-feel"
       text-anchor="middle">Feels Like 8°C</text>
+  </g>
+  <g id="forecast0">
+    <text
+            xml:space="preserve"
+            style="font-size:100px;font-family:'Weather Icons';fill:#000000"
+            x="490"
+            y="155"
+            id="forecast0-icon"
+            text-anchor="middle">&#xf00d;</text>
+    <text
+            xml:space="preserve"
+            style="font-size:26px;font-family:'Inter';fill:#000000"
+            x="570"
+            y="90"
+            id="forecast0-name">Tonight</text>
+    <text
+            xml:space="preserve"
+            style="font-size:26px;font-family:'Inter';fill:#000000"
+            x="570"
+            y="130"
+            id="forecast0-high"><tspan style="font-size:16px">high</tspan> 10<tspan dy="-8px" style="font-size:16px">&#x2103;</tspan></text>
+    <text
+            xml:space="preserve"
+            style="font-size:26px;font-family:'Inter';fill:#000000"
+            x="680"
+            y="130"
+            id="forecast0-low"><tspan style="font-size:16px">low</tspan> 10<tspan dy="-8px" style="font-size:16px">&#x2103;</tspan></text>
+    <text
+            xml:space="preserve"
+            style="font-size:26px;font-family:'Inter';fill:#000000"
+            x="570"
+            y="170"
+            id="forecast0-name"><tspan style="font-size:16px">PoP</tspan> 40<tspan dy="-8px" style="font-size:16px">%</tspan><tspan dy="8px" style="font-size:16px">    UV</tspan> 8</text>
   </g>
 </svg>
