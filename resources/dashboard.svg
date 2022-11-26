@@ -5,12 +5,7 @@
    height="600px"
    version="1.1"
    id="root"
-   inkscape:version="1.2.1 (9c6d41e, 2022-07-14)"
-   sodipodi:docname="dashboard.svg"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
+   xmlns="http://www.w3.org/2000/svg">
   <rect
     style="fill:#ffffff"
     width="100%"
@@ -20,19 +15,19 @@
     y1="30"
     x2="400"
     y2="570"
-    style="fill:none;stroke:#222222;stroke-width:2;stroke-miterlimit:10" />
+    style="fill:none;stroke:#222222;stroke-width:2" />
   <line
     x1="430"
     y1="210"
     x2="770"
     y2="210"
-    style="fill:none;stroke:#222222;stroke-width:2;stroke-miterlimit:10" />
+    style="fill:none;stroke:#222222;stroke-width:2" />
   <line
     x1="430"
     y1="390"
     x2="770"
     y2="390"
-    style="fill:none;stroke:#222222;stroke-width:2;stroke-miterlimit:10" />
+    style="fill:none;stroke:#222222;stroke-width:2" />
   <g id="current">
     <text
       xml:space="preserve"
@@ -61,14 +56,14 @@
       x="25%"
       y="500"
       id="current-temp"
-      text-anchor="middle">12°C</text>
+      text-anchor="middle">12<tspan dy="-22px" style="font-size:50px">&#x2103;</tspan></text>
     <text
       xml:space="preserve"
       style="font-size:30px;font-family:'Weather Icons';fill:#000000"
       x="25%"
       y="550"
       id="current-feel"
-      text-anchor="middle">Feels Like 8°C</text>
+      text-anchor="middle">Feels Like 8<tspan dy="-8px" style="font-size:18px">&#x2103;</tspan></text>
   </g>
   <g id="forecast0">
     <text
