@@ -73,13 +73,13 @@
             x="490"
             y="155"
             id="forecast0-icon"
-            text-anchor="middle">&#xf00d;</text>
+            text-anchor="middle">$$forecast0-icon$$</text>
     <text
             xml:space="preserve"
             style="font-size:26px;font-family:'Inter';fill:#000000"
             x="570"
             y="90"
-            id="forecast0-name">Tonight</text>
+            id="forecast0-name">$$forecast0-short-name$$</text>
     <text
             xml:space="preserve"
             style="font-size:26px;font-family:'Inter';fill:#000000"
@@ -98,5 +98,71 @@
             x="570"
             y="170"
             id="forecast0-name"><tspan style="font-size:16px">PoP</tspan> 40<tspan dy="-8px" style="font-size:16px">%</tspan><tspan dy="8px" style="font-size:16px">    UV</tspan> 8</text>
+  </g>
+  <g id="forecast1">
+    <text
+            xml:space="preserve"
+            style="font-size:100px;font-family:'Weather Icons';fill:#000000"
+            x="490"
+            y="337"
+            id="forecast1-icon"
+            text-anchor="middle">$$forecast1-icon$$</text>
+    <text
+            xml:space="preserve"
+            style="font-size:26px;font-family:'Inter';fill:#000000"
+            x="570"
+            y="272"
+            id="forecast1-name">$$forecast1-short-name$$</text>
+    <text
+            xml:space="preserve"
+            style="font-size:26px;font-family:'Inter';fill:#000000"
+            x="570"
+            y="312"
+            id="forecast1-high"><tspan style="font-size:16px">high</tspan> 10<tspan dy="-8px" style="font-size:16px">&#x2103;</tspan></text>
+    <text
+            xml:space="preserve"
+            style="font-size:26px;font-family:'Inter';fill:#000000"
+            x="680"
+            y="312"
+            id="forecast1-low"><tspan style="font-size:16px">low</tspan> 10<tspan dy="-8px" style="font-size:16px">&#x2103;</tspan></text>
+    <text
+            xml:space="preserve"
+            style="font-size:26px;font-family:'Inter';fill:#000000"
+            x="570"
+            y="352"
+            id="forecast1-name"><tspan style="font-size:16px">PoP</tspan> 40<tspan dy="-8px" style="font-size:16px">%</tspan><tspan dy="8px" style="font-size:16px">    UV</tspan> 8</text>
+  </g>
+  <g id="forecast2">
+    <text
+            xml:space="preserve"
+            style="font-size:100px;font-family:'Weather Icons';fill:#000000"
+            x="490"
+            y="519"
+            id="forecast2-icon"
+            text-anchor="middle">$$forecast2-icon$$</text>
+    <text
+            xml:space="preserve"
+            style="font-size:26px;font-family:'Inter';fill:#000000"
+            x="570"
+            y="454"
+            id="forecast2-name">$$forecast2-short-name$$</text>
+    <text
+            xml:space="preserve"
+            style="font-size:26px;font-family:'Inter';fill:#000000"
+            x="570"
+            y="494"
+            id="forecast2-high"><tspan style="font-size:16px">high</tspan> 10<tspan dy="-8px" style="font-size:16px">&#x2103;</tspan></text>
+    <text
+            xml:space="preserve"
+            style="font-size:26px;font-family:'Inter';fill:#000000"
+            x="680"
+            y="494"
+            id="forecast2-low"><tspan style="font-size:16px">low</tspan> 10<tspan dy="-8px" style="font-size:16px">&#x2103;</tspan></text>
+    <text
+            xml:space="preserve"
+            style="font-size:26px;font-family:'Inter';fill:#000000"
+            x="570"
+            y="534"
+            id="forecast2-name"><tspan style="font-size:16px">PoP</tspan> 40<tspan dy="-8px" style="font-size:16px">%</tspan><tspan dy="8px" style="font-size:16px">    UV</tspan> 8</text>
   </g>
 </svg>

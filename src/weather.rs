@@ -10,6 +10,7 @@ const WEATHER_URL: &str = "https://dd.weather.gc.ca/citypage_weather/xml/NS/s000
 #[serde(rename_all = "camelCase")]
 struct WeatherResponse {
     current_conditions: CurrentConditionsResponse,
+    forecast_group: ForecastGroupResponse,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -21,6 +22,26 @@ struct CurrentConditionsResponse {
     temperature: f64,
     wind_chill: Option<f64>,
     humidex: Option<f64>,
+}
+
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
+struct ForecastGroupResponse {
+    #[serde(rename = "forecast")]
+    forecasts: Vec<ForecastResponse>,
+}
+
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
+struct ForecastResponse {
+    period: ForecastPeriodResponse,
+    abbreviated_forecast: AbbreviatedForecastResponse,
+}
+
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
+struct AbbreviatedForecastResponse {
+    icon_code: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -40,6 +61,12 @@ struct NamedFieldResponse {
     value: String,
 }
 
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
+struct ForecastPeriodResponse {
+    text_forecast_name: String,
+}
+
 #[derive(Debug)]
 pub(crate) struct WeatherReport {
     pub(crate) current_conditions: CurrentConditions,
@@ -57,12 +84,12 @@ pub(crate) struct CurrentConditions {
 
 #[derive(Debug)]
 pub(crate) struct Forecast {
-    day_short_name: String,
-    low_temp: Option<f64>,
-    high_temp: Option<f64>,
-    pop: Option<u8>,
-    uv: Option<u8>,
-    weather_icon: WeatherIcon,
+    pub(crate) day_short_name: String,
+    pub(crate) low_temp: Option<f64>,
+    pub(crate) high_temp: Option<f64>,
+    pub(crate) pop: Option<u8>,
+    pub(crate) uv: Option<u8>,
+    pub(crate) weather_icon: WeatherIcon,
 }
 
 impl TryFrom<WeatherResponse> for WeatherReport {
@@ -94,41 +121,36 @@ impl TryFrom<WeatherResponse> for WeatherReport {
                 weather_icon: response
                     .current_conditions
                     .icon_code
-                    .map_or(WeatherIcon::Na, WeatherIcon::from),
+                    .map_or(WeatherIcon::Na, |icon_code| {
+                        WeatherIcon::from(icon_code.as_str())
+                    }),
             },
-            forecast: [
-                Forecast {
-                    day_short_name: "".to_string(),
+            forecast: response.forecast_group.forecasts[..3]
+                .iter()
+                .map(|forecast| Forecast {
+                    day_short_name: forecast.period.text_forecast_name.to_owned(),
                     low_temp: None,
                     high_temp: None,
                     pop: None,
                     uv: None,
-                    weather_icon: WeatherIcon::DaySunny,
-                },
-                Forecast {
-                    day_short_name: "".to_string(),
-                    low_temp: None,
-                    high_temp: None,
-                    pop: None,
-                    uv: None,
-                    weather_icon: WeatherIcon::DaySunny,
-                },
-                Forecast {
-                    day_short_name: "".to_string(),
-                    low_temp: None,
-                    high_temp: None,
-                    pop: None,
-                    uv: None,
-                    weather_icon: WeatherIcon::DaySunny,
-                },
-            ],
+                    weather_icon: forecast
+                        .abbreviated_forecast
+                        .icon_code
+                        .as_ref()
+                        .map_or(WeatherIcon::Na, |icon_code| {
+                            WeatherIcon::from(icon_code.as_str())
+                        }),
+                })
+                .collect::<Vec<Forecast>>()
+                .try_into()
+                .expect("Should have at least 3 forecast entries available"),
         })
     }
 }
 
-impl From<String> for WeatherIcon {
-    fn from(icon_code: String) -> Self {
-        match icon_code.as_str() {
+impl From<&str> for WeatherIcon {
+    fn from(icon_code: &str) -> Self {
+        match icon_code {
             "00" => WeatherIcon::DaySunny,
             "01" => WeatherIcon::DaySunnyOvercast,
             "02" => WeatherIcon::DayCloudy,
