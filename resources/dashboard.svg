@@ -35,35 +35,36 @@
       x="25%"
       y="100"
       id="current-day-name"
-      text-anchor="middle">Wednesday</text>
+      text-anchor="middle">$$current-day-short-name$$</text>
     <text
       xml:space="preserve"
       style="font-size:30px;font-family:'Inter';fill:#000000"
       x="25%"
       y="150"
       id="current-day-long"
-      text-anchor="middle">November 18, 2022</text>
+      text-anchor="middle">$$current-day-long-name$$</text>
     <text
       xml:space="preserve"
       style="font-size:160px;font-family:'Weather Icons';fill:#000000"
       x="25%"
       y="360"
       id="current-icon"
-      text-anchor="middle">&#xf00d;</text>
+      text-anchor="middle">$$current-day-icon$$</text>
     <text
       xml:space="preserve"
       style="font-size:80px;font-family:'Weather Icons';fill:#000000"
       x="25%"
       y="500"
       id="current-temp"
-      text-anchor="middle">12<tspan dy="-22px" style="font-size:50px">&#x2103;</tspan></text>
+      text-anchor="middle">$$current-day-temp$$<tspan dy="-22px" style="font-size:50px">&#x2103;</tspan></text>
     <text
       xml:space="preserve"
       style="font-size:30px;font-family:'Weather Icons';fill:#000000"
       x="25%"
       y="550"
       id="current-feel"
-      text-anchor="middle">Feels Like 8<tspan dy="-8px" style="font-size:18px">&#x2103;</tspan></text>
+      visibility="$$current-day-feel-visibility$$"
+      text-anchor="middle">Feels Like $$current-day-feel$$<tspan dy="-8px" style="font-size:18px">&#x2103;</tspan></text>
   </g>
   <g id="forecast0">
     <text

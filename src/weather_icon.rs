@@ -1,4 +1,5 @@
 #[derive(Debug)]
+#[allow(dead_code)]
 pub(crate) enum WeatherIcon {
     DaySunny,
     DayCloudy,
@@ -107,11 +108,12 @@ pub(crate) enum WeatherIcon {
     StormWarning,
     HurricaneWarning,
     WindDirection,
+    Na,
 }
 
 impl WeatherIcon {
     pub(crate) fn get_icon_code(&self) -> &str {
-        return match self {
+        match self {
             Self::DaySunny => "f00d",
             Self::DayCloudy => "f002",
             Self::DayCloudyGusts => "f000",
@@ -219,6 +221,7 @@ impl WeatherIcon {
             Self::StormWarning => "f0ce",
             Self::HurricaneWarning => "f0cf",
             Self::WindDirection => "f0b1",
-        };
+            Self::Na => "f07b",
+        }
     }
 }

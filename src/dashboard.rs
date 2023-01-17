@@ -1,11 +1,50 @@
-use anyhow::Result;
+use crate::weather::WeatherReport;
+
 use log::debug;
-use usvg::roxmltree::Document;
 
 const DASHBOARD_SVG: &str = include_str!("../resources/dashboard.svg");
 
-pub(crate) fn build_dashboard() -> Result<Document<'static>> {
+pub(crate) fn build_dashboard(weather: WeatherReport) -> String {
     debug!("Building the dashboard");
-    let dashboard = Document::parse(DASHBOARD_SVG)?;
-    Ok(dashboard)
+    update_current_day(weather, DASHBOARD_SVG)
+}
+
+fn update_current_day(weather: WeatherReport, svg: &str) -> String {
+    svg.replace(
+        "$$current-day-short-name$$",
+        &weather.current_conditions.day_short_name,
+    )
+    .replace(
+        "$$current-day-long-name$$",
+        &weather.current_conditions.day_long_name,
+    )
+    .replace(
+        "$$current-day-icon$$",
+        &format!(
+            "&#x{};",
+            weather.current_conditions.weather_icon.get_icon_code()
+        ),
+    )
+    .replace(
+        "$$current-day-temp$$",
+        &weather.current_conditions.temp.to_string(),
+    )
+    .replace(
+        "$$current-day-feel-visibility$$",
+        get_visibility(weather.current_conditions.feels_like_temp),
+    )
+    .replace(
+        "$$current-day-feel$$",
+        &weather
+            .current_conditions
+            .feels_like_temp
+            .map_or("-".to_string(), |temp| temp.to_string()),
+    )
+}
+
+fn get_visibility<T>(optional: Option<T>) -> &'static str {
+    match optional {
+        Some(_) => "visible",
+        None => "hidden",
+    }
 }

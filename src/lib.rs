@@ -10,7 +10,7 @@ use anyhow::Result;
 use tiny_skia::Pixmap;
 
 pub fn render_dashboard() -> Result<Pixmap> {
-    fetch_weather()?;
-    let dash_svg = build_dashboard()?;
+    let weather = fetch_weather()?;
+    let dash_svg = build_dashboard(weather);
     render(&dash_svg)
 }

@@ -7,13 +7,14 @@ use usvg::{FitTo, Options, Tree};
 const WEATHER_FONT: &[u8] = include_bytes!("../resources/weathericons-regular-webfont.ttf");
 const TEXT_FONT: &[u8] = include_bytes!("../resources/Inter-Regular.ttf");
 
-pub(crate) fn render(svg_doc: &Document) -> Result<Pixmap> {
+pub(crate) fn render(svg_doc: &str) -> Result<Pixmap> {
     debug!("Rendering the dashboard");
     let mut opt = Options::default();
     opt.fontdb.load_font_data(WEATHER_FONT.to_vec());
     opt.fontdb.load_font_data(TEXT_FONT.to_vec());
 
-    let tree = Tree::from_xmltree(svg_doc, &opt.to_ref())?;
+    let doc = Document::parse(svg_doc)?;
+    let tree = Tree::from_xmltree(&doc, &opt.to_ref())?;
 
     let size = tree.size.to_screen_size();
     let mut pixmap = Pixmap::new(size.width(), size.height()).context("Failed to create pixmap")?;
