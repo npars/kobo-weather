@@ -36,12 +36,35 @@ struct ForecastGroupResponse {
 struct ForecastResponse {
     period: ForecastPeriodResponse,
     abbreviated_forecast: AbbreviatedForecastResponse,
+    temperatures: ForecastTemperaturesResponse,
+    uv: Option<UvResponse>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 struct AbbreviatedForecastResponse {
     icon_code: Option<String>,
+    pop: Option<u8>,
+}
+
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
+struct ForecastTemperaturesResponse {
+    temperatures: Vec<TemperatureResponse>,
+}
+
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
+struct TemperatureResponse {
+    class: String,
+    #[serde(rename = "$value")]
+    temperature: i32,
+}
+
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "camelCase")]
+struct UvResponse {
+    index: u8,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -85,8 +108,8 @@ pub(crate) struct CurrentConditions {
 #[derive(Debug)]
 pub(crate) struct Forecast {
     pub(crate) day_short_name: String,
-    pub(crate) low_temp: Option<f64>,
-    pub(crate) high_temp: Option<f64>,
+    pub(crate) low_temp: Option<i32>,
+    pub(crate) high_temp: Option<i32>,
     pub(crate) pop: Option<u8>,
     pub(crate) uv: Option<u8>,
     pub(crate) weather_icon: WeatherIcon,
@@ -129,10 +152,20 @@ impl TryFrom<WeatherResponse> for WeatherReport {
                 .iter()
                 .map(|forecast| Forecast {
                     day_short_name: forecast.period.text_forecast_name.to_owned(),
-                    low_temp: None,
-                    high_temp: None,
-                    pop: None,
-                    uv: None,
+                    low_temp: forecast
+                        .temperatures
+                        .temperatures
+                        .iter()
+                        .find(|temp| temp.class == "high")
+                        .map(|temp| temp.temperature),
+                    high_temp: forecast
+                        .temperatures
+                        .temperatures
+                        .iter()
+                        .find(|temp| temp.class == "low")
+                        .map(|temp| temp.temperature),
+                    pop: forecast.abbreviated_forecast.pop,
+                    uv: forecast.uv.as_ref().map(|uv| uv.index),
                     weather_icon: forecast
                         .abbreviated_forecast
                         .icon_code
@@ -207,6 +240,7 @@ impl From<&str> for WeatherIcon {
 pub(crate) fn fetch_weather() -> Result<WeatherReport> {
     debug!("Fetching weather");
     let body = reqwest::blocking::get(WEATHER_URL)?.text()?;
+    debug!("Parsing response");
     let weather_response: WeatherResponse = serde_xml_rs::from_str(&body)?;
     debug!("{:?}", weather_response);
 

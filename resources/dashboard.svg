@@ -47,8 +47,9 @@
       xml:space="preserve"
       style="font-size:160px;font-family:'Weather Icons';fill:#000000"
       x="25%"
-      y="360"
+      y="300"
       id="current-icon"
+      dominant-baseline="middle"
       text-anchor="middle">$$current-day-icon$$</text>
     <text
       xml:space="preserve"
@@ -71,8 +72,9 @@
             xml:space="preserve"
             style="font-size:100px;font-family:'Weather Icons';fill:#000000"
             x="490"
-            y="155"
+            y="115"
             id="forecast0-icon"
+            dominant-baseline="middle"
             text-anchor="middle">$$forecast0-icon$$</text>
     <text
             xml:space="preserve"
@@ -85,27 +87,38 @@
             style="font-size:26px;font-family:'Inter';fill:#000000"
             x="570"
             y="130"
-            id="forecast0-high"><tspan style="font-size:16px">high</tspan> 10<tspan dy="-8px" style="font-size:16px">&#x2103;</tspan></text>
+            visibility="$$forecast0-high-visibility$$"
+            id="forecast0-high"><tspan style="font-size:16px">high</tspan> $$forecast0-high$$<tspan dy="-8px" style="font-size:16px">&#x2103;</tspan></text>
     <text
             xml:space="preserve"
             style="font-size:26px;font-family:'Inter';fill:#000000"
             x="680"
             y="130"
-            id="forecast0-low"><tspan style="font-size:16px">low</tspan> 10<tspan dy="-8px" style="font-size:16px">&#x2103;</tspan></text>
+            visibility="$$forecast0-low-visibility$$"
+            id="forecast0-low"><tspan style="font-size:16px">low</tspan> $$forecast0-low$$<tspan dy="-8px" style="font-size:16px">&#x2103;</tspan></text>
     <text
             xml:space="preserve"
             style="font-size:26px;font-family:'Inter';fill:#000000"
             x="570"
             y="170"
-            id="forecast0-name"><tspan style="font-size:16px">PoP</tspan> 40<tspan dy="-8px" style="font-size:16px">%</tspan><tspan dy="8px" style="font-size:16px">    UV</tspan> 8</text>
+            visibility="$$forecast0-pop-visibility$$"
+            id="forecast0-pop"><tspan style="font-size:16px">pop</tspan> $$forecast0-pop$$<tspan dy="-8px" style="font-size:16px">%</tspan></text>
+    <text
+            xml:space="preserve"
+            style="font-size:26px;font-family:'Inter';fill:#000000"
+            x="680"
+            y="170"
+            visibility="$$forecast0-uv-visibility$$"
+            id="forecast0-uv"><tspan style="font-size:16px">uv</tspan> $$forecast0-uv$$</text>
   </g>
   <g id="forecast1">
     <text
             xml:space="preserve"
             style="font-size:100px;font-family:'Weather Icons';fill:#000000"
             x="490"
-            y="337"
+            y="326"
             id="forecast1-icon"
+            dominant-baseline="middle"
             text-anchor="middle">$$forecast1-icon$$</text>
     <text
             xml:space="preserve"
@@ -118,27 +131,38 @@
             style="font-size:26px;font-family:'Inter';fill:#000000"
             x="570"
             y="312"
-            id="forecast1-high"><tspan style="font-size:16px">high</tspan> 10<tspan dy="-8px" style="font-size:16px">&#x2103;</tspan></text>
+            visibility="$$forecast1-high-visibility$$"
+            id="forecast1-high"><tspan style="font-size:16px">high</tspan> $$forecast1-high$$<tspan dy="-8px" style="font-size:16px">&#x2103;</tspan></text>
     <text
             xml:space="preserve"
             style="font-size:26px;font-family:'Inter';fill:#000000"
             x="680"
             y="312"
-            id="forecast1-low"><tspan style="font-size:16px">low</tspan> 10<tspan dy="-8px" style="font-size:16px">&#x2103;</tspan></text>
+            visibility="$$forecast1-low-visibility$$"
+            id="forecast1-low"><tspan style="font-size:16px">low</tspan> $$forecast1-low$$<tspan dy="-8px" style="font-size:16px">&#x2103;</tspan></text>
     <text
             xml:space="preserve"
             style="font-size:26px;font-family:'Inter';fill:#000000"
             x="570"
             y="352"
-            id="forecast1-name"><tspan style="font-size:16px">PoP</tspan> 40<tspan dy="-8px" style="font-size:16px">%</tspan><tspan dy="8px" style="font-size:16px">    UV</tspan> 8</text>
+            visibility="$$forecast1-pop-visibility$$"
+            id="forecast1-pop"><tspan style="font-size:16px">pop</tspan> $$forecast1-pop$$<tspan dy="-8px" style="font-size:16px">%</tspan></text>
+    <text
+            xml:space="preserve"
+            style="font-size:26px;font-family:'Inter';fill:#000000"
+            x="680"
+            y="352"
+            visibility="$$forecast1-uv-visibility$$"
+            id="forecast1-uv"><tspan style="font-size:16px">uv</tspan> $$forecast1-uv$$</text>
   </g>
   <g id="forecast2">
     <text
             xml:space="preserve"
             style="font-size:100px;font-family:'Weather Icons';fill:#000000"
             x="490"
-            y="519"
+            y="476"
             id="forecast2-icon"
+            dominant-baseline="middle"
             text-anchor="middle">$$forecast2-icon$$</text>
     <text
             xml:space="preserve"
@@ -151,18 +175,28 @@
             style="font-size:26px;font-family:'Inter';fill:#000000"
             x="570"
             y="494"
-            id="forecast2-high"><tspan style="font-size:16px">high</tspan> 10<tspan dy="-8px" style="font-size:16px">&#x2103;</tspan></text>
+            visibility="$$forecast2-high-visibility$$"
+            id="forecast2-high"><tspan style="font-size:16px">high</tspan> $$forecast2-high$$<tspan dy="-8px" style="font-size:16px">&#x2103;</tspan></text>
     <text
             xml:space="preserve"
             style="font-size:26px;font-family:'Inter';fill:#000000"
             x="680"
             y="494"
-            id="forecast2-low"><tspan style="font-size:16px">low</tspan> 10<tspan dy="-8px" style="font-size:16px">&#x2103;</tspan></text>
+            visibility="$$forecast2-low-visibility$$"
+            id="forecast2-low"><tspan style="font-size:16px">low</tspan> $$forecast2-low$$<tspan dy="-8px" style="font-size:16px">&#x2103;</tspan></text>
     <text
             xml:space="preserve"
             style="font-size:26px;font-family:'Inter';fill:#000000"
             x="570"
             y="534"
-            id="forecast2-name"><tspan style="font-size:16px">PoP</tspan> 40<tspan dy="-8px" style="font-size:16px">%</tspan><tspan dy="8px" style="font-size:16px">    UV</tspan> 8</text>
+            visibility="$$forecast2-pop-visibility$$"
+            id="forecast2-pop"><tspan style="font-size:16px">pop</tspan> $$forecast2-pop$$<tspan dy="-8px" style="font-size:16px">%</tspan></text>
+    <text
+            xml:space="preserve"
+            style="font-size:26px;font-family:'Inter';fill:#000000"
+            x="680"
+            y="534"
+            visibility="$$forecast2-uv-visibility$$"
+            id="forecast2-uv"><tspan style="font-size:16px">uv</tspan> $$forecast2-uv$$</text>
   </g>
 </svg>

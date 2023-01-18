@@ -55,6 +55,46 @@ fn update_forecast(forecast: &Forecast, index: usize, svg: &str) -> String {
         &format!("$$forecast{index}-short-name$$"),
         &forecast.day_short_name,
     )
+    .replace(
+        &format!("$$forecast{index}-high-visibility$$"),
+        get_visibility(forecast.high_temp),
+    )
+    .replace(
+        &format!("$$forecast{index}-high$$"),
+        &forecast
+            .high_temp
+            .map_or("-".to_string(), |value| value.to_string()),
+    )
+    .replace(
+        &format!("$$forecast{index}-low-visibility$$"),
+        get_visibility(forecast.low_temp),
+    )
+    .replace(
+        &format!("$$forecast{index}-low"),
+        &forecast
+            .low_temp
+            .map_or("-".to_string(), |value| value.to_string()),
+    )
+    .replace(
+        &format!("$$forecast{index}-pop-visibility$$"),
+        get_visibility(forecast.low_temp),
+    )
+    .replace(
+        &format!("$$forecast{index}-pop"),
+        &forecast
+            .pop
+            .map_or("-".to_string(), |value| value.to_string()),
+    )
+    .replace(
+        &format!("$$forecast{index}-uv-visibility$$"),
+        get_visibility(forecast.low_temp),
+    )
+    .replace(
+        &format!("$$forecast{index}-uv"),
+        &forecast
+            .uv
+            .map_or("-".to_string(), |value| value.to_string()),
+    )
 }
 
 fn get_visibility<T>(optional: Option<T>) -> &'static str {
