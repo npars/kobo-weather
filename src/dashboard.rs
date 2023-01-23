@@ -70,27 +70,27 @@ fn update_forecast(forecast: &Forecast, index: usize, svg: &str) -> String {
         get_visibility(forecast.low_temp),
     )
     .replace(
-        &format!("$$forecast{index}-low"),
+        &format!("$$forecast{index}-low$$"),
         &forecast
             .low_temp
             .map_or("-".to_string(), |value| value.to_string()),
     )
     .replace(
         &format!("$$forecast{index}-pop-visibility$$"),
-        get_visibility(forecast.low_temp),
+        get_visibility(forecast.pop),
     )
     .replace(
-        &format!("$$forecast{index}-pop"),
+        &format!("$$forecast{index}-pop$$"),
         &forecast
             .pop
             .map_or("-".to_string(), |value| value.to_string()),
     )
     .replace(
         &format!("$$forecast{index}-uv-visibility$$"),
-        get_visibility(forecast.low_temp),
+        get_visibility(forecast.uv),
     )
     .replace(
-        &format!("$$forecast{index}-uv"),
+        &format!("$$forecast{index}-uv$$"),
         &forecast
             .uv
             .map_or("-".to_string(), |value| value.to_string()),

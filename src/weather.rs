@@ -44,12 +44,13 @@ struct ForecastResponse {
 #[serde(rename_all = "camelCase")]
 struct AbbreviatedForecastResponse {
     icon_code: Option<String>,
-    pop: Option<u8>,
+    pop: String,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "camelCase")]
 struct ForecastTemperaturesResponse {
+    #[serde(rename = "temperature")]
     temperatures: Vec<TemperatureResponse>,
 }
 
@@ -156,15 +157,15 @@ impl TryFrom<WeatherResponse> for WeatherReport {
                         .temperatures
                         .temperatures
                         .iter()
-                        .find(|temp| temp.class == "high")
+                        .find(|temp| temp.class == "low")
                         .map(|temp| temp.temperature),
                     high_temp: forecast
                         .temperatures
                         .temperatures
                         .iter()
-                        .find(|temp| temp.class == "low")
+                        .find(|temp| temp.class == "high")
                         .map(|temp| temp.temperature),
-                    pop: forecast.abbreviated_forecast.pop,
+                    pop: forecast.abbreviated_forecast.pop.parse().ok(),
                     uv: forecast.uv.as_ref().map(|uv| uv.index),
                     weather_icon: forecast
                         .abbreviated_forecast
@@ -239,7 +240,8 @@ impl From<&str> for WeatherIcon {
 
 pub(crate) fn fetch_weather() -> Result<WeatherReport> {
     debug!("Fetching weather");
-    let body = reqwest::blocking::get(WEATHER_URL)?.text()?;
+    let response = minreq::get(WEATHER_URL).with_timeout(20).send()?;
+    let body = response.as_str()?;
     debug!("Parsing response");
     let weather_response: WeatherResponse = serde_xml_rs::from_str(&body)?;
     debug!("{:?}", weather_response);
