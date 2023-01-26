@@ -1,11 +1,108 @@
 use anyhow::{Context, Result};
 use log::debug;
+use log::info;
+use std::fs::File;
 use std::io::{BufWriter, Write};
 use std::process::{Command, Stdio};
+use std::thread::sleep;
+use std::time::Duration;
 use tiny_skia::Pixmap;
 
+/// Kill the daemon that controls the device
+pub fn kill_nickel() -> Result<()> {
+    info!("Killing Nickel");
+    Command::new("killall").arg("nickel").status()?;
+    Ok(())
+}
+
+pub fn wifi_up() -> Result<()> {
+    info!("WiFi Up");
+    debug!("ifconfig eth up");
+    Command::new("ifconfig").args(["eth0", "up"]).status()?;
+    debug!("wlarm_le -i eth0 up");
+    Command::new("wlarm_le")
+        .args(["-i", "eth0", "up"])
+        .status()?;
+    debug!("wpa_supplicant ...");
+    Command::new("wpa_supplicant")
+        .args([
+            "-s",
+            "-i",
+            "eth0",
+            "-c",
+            "/etc/wpa_supplicant/wpa_supplicant.conf",
+            "-C",
+            "/var/run/wpa_supplicant",
+            "-B",
+        ])
+        .status()?;
+    debug!("sleep...");
+    sleep(Duration::from_secs(2));
+    debug!("udhcpc ...");
+    Command::new("udhcpc")
+        .args([
+            "-S",
+            "-i",
+            "eth0",
+            "-s",
+            "/etc/udhcpc.d/default.script",
+            "-t15",
+            "-T10",
+            "-A3",
+            "-f",
+            "-q",
+        ])
+        .status()?;
+    Ok(())
+}
+
+pub fn wifi_down() -> Result<()> {
+    info!("WiFi Down");
+    debug!("killall wpa_supplicant");
+    Command::new("killall").arg("wpa_supplicant").status()?;
+    debug!("wlarm_le -i eth0 down");
+    Command::new("wlarm_le")
+        .args(["-i", "eth0", "down"])
+        .status()?;
+    debug!("ifconfig eth0 down");
+    Command::new("ifconfig").args(["eth0", "down"]).status()?;
+    Ok(())
+}
+
+pub fn system_sleep(duration: Duration) -> Result<()> {
+    info!("Putting system to sleep");
+    debug!("Disabling the screen");
+    {
+        let mut power_state_extended = File::open("/sys/power/state-extended")?;
+        writeln!(power_state_extended, "1")?;
+        power_state_extended.sync_all()?;
+    }
+
+    debug!("Entering low power state");
+    Command::new("/mnt/onboard/busybox_kobo")
+        .args([
+            "rtcwake",
+            "-u",
+            "-s",
+            &duration.as_secs().to_string(),
+            "-m",
+            "mem",
+        ])
+        .status()?;
+
+    info!("Waking up");
+    debug!("Enabling the screen");
+    {
+        let mut power_state_extended = File::open("/sys/power/state-extended")?;
+        writeln!(power_state_extended, "0")?;
+        power_state_extended.sync_all()?;
+    }
+
+    Ok(())
+}
+
 pub fn display(image: Pixmap) -> Result<()> {
-    debug!("Displaying the dashboard");
+    info!("Displaying the dashboard");
     let raw_image = to_rgb565_le(&image);
     display_image(raw_image)
 }

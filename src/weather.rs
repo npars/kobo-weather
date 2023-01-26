@@ -1,6 +1,7 @@
 use crate::weather_icon::WeatherIcon;
 use anyhow::{Context, Error, Result};
 use log::debug;
+use log::info;
 use serde::{Deserialize, Serialize};
 
 const FORECAST_COUNT: usize = 3;
@@ -239,11 +240,11 @@ impl From<&str> for WeatherIcon {
 }
 
 pub(crate) fn fetch_weather() -> Result<WeatherReport> {
-    debug!("Fetching weather");
+    info!("Fetching weather");
     let response = minreq::get(WEATHER_URL).with_timeout(20).send()?;
     let body = response.as_str()?;
     debug!("Parsing response");
-    let weather_response: WeatherResponse = serde_xml_rs::from_str(&body)?;
+    let weather_response: WeatherResponse = serde_xml_rs::from_str(body)?;
     debug!("{:?}", weather_response);
 
     let report = weather_response.try_into()?;

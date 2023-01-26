@@ -1,11 +1,11 @@
 use crate::weather::{Forecast, WeatherReport};
 
-use log::debug;
+use log::info;
 
 const DASHBOARD_SVG: &str = include_str!("../resources/dashboard.svg");
 
 pub(crate) fn build_dashboard(weather: WeatherReport) -> String {
-    debug!("Building the dashboard");
+    info!("Building the dashboard");
     let mut dashboard = update_current_day(&weather, DASHBOARD_SVG);
     for (index, forecast) in weather.forecast.iter().enumerate() {
         dashboard = update_forecast(forecast, index, &dashboard);

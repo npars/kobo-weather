@@ -116,7 +116,7 @@
             xml:space="preserve"
             style="font-size:100px;font-family:'Weather Icons';fill:#000000"
             x="490"
-            y="326"
+            y="298"
             id="forecast1-icon"
             dominant-baseline="middle"
             text-anchor="middle">$$forecast1-icon$$</text>
