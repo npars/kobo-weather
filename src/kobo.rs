@@ -1,7 +1,7 @@
 use anyhow::{Context, Result};
 use log::debug;
 use log::info;
-use std::fs::File;
+use std::fs::OpenOptions;
 use std::io::{BufWriter, Write};
 use std::process::{Command, Stdio};
 use std::thread::sleep;
@@ -73,16 +73,16 @@ pub fn system_sleep(duration: Duration) -> Result<()> {
     info!("Putting system to sleep");
     debug!("Disabling the screen");
     {
-        let mut power_state_extended = File::open("/sys/power/state-extended")?;
-        writeln!(power_state_extended, "1")?;
-        power_state_extended.sync_all()?;
+        let mut power_state_extended = OpenOptions::new()
+            .append(true)
+            .open("/sys/power/state-extended")?;
+        writeln!(&mut power_state_extended, "1")?;
     }
 
     debug!("Entering low power state");
     Command::new("/mnt/onboard/busybox_kobo")
         .args([
             "rtcwake",
-            "-u",
             "-s",
             &duration.as_secs().to_string(),
             "-m",
@@ -93,9 +93,10 @@ pub fn system_sleep(duration: Duration) -> Result<()> {
     info!("Waking up");
     debug!("Enabling the screen");
     {
-        let mut power_state_extended = File::open("/sys/power/state-extended")?;
-        writeln!(power_state_extended, "0")?;
-        power_state_extended.sync_all()?;
+        let mut power_state_extended = OpenOptions::new()
+            .append(true)
+            .open("/sys/power/state-extended")?;
+        writeln!(&mut power_state_extended, "0")?;
     }
 
     Ok(())
