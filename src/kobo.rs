@@ -17,6 +17,16 @@ pub fn kill_nickel() -> Result<()> {
 
 pub fn wifi_up() -> Result<()> {
     info!("WiFi Up");
+    debug!("insmod sdio_wifi_pwr");
+    Command::new("insmod")
+        .arg("/drivers/ntx508/wifi/sdio_wifi_pwr.ko")
+        .status()?;
+    debug!("insmod dhd");
+    Command::new("insmod")
+        .arg("/drivers/ntx508/wifi/dhd.ko")
+        .status()?;
+    debug!("sleep...");
+    sleep(Duration::from_secs(2));
     debug!("ifconfig eth up");
     Command::new("ifconfig").args(["eth0", "up"]).status()?;
     debug!("wlarm_le -i eth0 up");
@@ -66,6 +76,11 @@ pub fn wifi_down() -> Result<()> {
         .status()?;
     debug!("ifconfig eth0 down");
     Command::new("ifconfig").args(["eth0", "down"]).status()?;
+    debug!("rmmod dhd");
+    Command::new("rmmod").arg("dhd").status()?;
+    debug!("rmmod sdio_wifi_pwr");
+    Command::new("rmmod").arg("sdio_wifi_pwr").status()?;
+
     Ok(())
 }
 

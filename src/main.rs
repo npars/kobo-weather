@@ -14,19 +14,15 @@ fn main() -> Result<()> {
 
     kill_nickel()?;
 
-    if let Err(e) = refresh() {
-        error!("Failed to refresh due to error: {}", e)
-    }
+    loop {
+        if let Err(e) = refresh() {
+            error!("Failed to refresh due to error: {}", e)
+        }
 
-    if let Err(e) = enter_low_power_mode() {
-        error!("Failed to enter low power mode due to error: {}", e)
+        if let Err(e) = enter_low_power_mode() {
+            error!("Failed to enter low power mode due to error: {}", e)
+        }
     }
-
-    if let Err(e) = refresh() {
-        error!("Failed to refresh due to error: {}", e)
-    }
-
-    Ok(())
 }
 
 fn refresh() -> Result<()> {
@@ -37,7 +33,7 @@ fn refresh() -> Result<()> {
 
 fn enter_low_power_mode() -> Result<()> {
     wifi_down()?;
-    system_sleep(Duration::from_secs(10))?;
+    system_sleep(Duration::from_secs(60 * 60))?;
     wifi_up()?;
     Ok(())
 }
