@@ -1,5 +1,7 @@
 # Weather Dashboard
 
+- [ ] Write half decent docs
+
 A weather dashboard original created for the Kobo Mini (2012).
 
 Tested on Kobo Mini firmware 3.19.5761-s, the latest available as described at 
