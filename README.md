@@ -21,6 +21,7 @@ Sleep for an hour:
 
 ## References
 
+* [Kobo Touch Hacking](https://wiki.mobileread.com/wiki/Kobo_Touch_Hacking)
 * [Hacking the Kobo Touch for Dummies](https://web.archive.org/web/20190206185343/http://www.chauveau-central.net/pub/KoboTouch/)
 * [rtcwake Discussion](https://www.mobileread.com/forums/showthread.php?t=212145&highlight=rtcwake&page=5)
 * [Getting suspend working](https://www.mobileread.com/forums/showpost.php?p=2828681&postcount=77)
