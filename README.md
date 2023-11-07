@@ -7,6 +7,8 @@ https://pgaskin.net/KoboStuff/kobofirmware.html. Note that
 this firmware runs glibc 2.15 so this project compiles against
 musl to avoid any compatibility issues.
 
+![kobo](https://github.com/npars/kobo-weather/assets/1280422/7fc83365-43c4-4e5a-b5be-bffd54633747)
+
 ## rtcwake notes
 
 A tweaked version of rtcwake is required to enable resuming from sleep on the Kobo Mini.
